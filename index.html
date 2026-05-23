@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Useful Bookmarklets</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+            line-height: 1.6;
+            color: #333;
+        }
+        h1 {
+            border-bottom: 2px solid #e74c3c;
+            padding-bottom: 10px;
+        }
+        ol {
+            padding-left: 20px;
+        }
+        li {
+            margin: 20px 0;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            border-left: 4px solid #e74c3c;
+        }
+        a.bookmarklet {
+            display: inline-block;
+            background: #e74c3c;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        a.bookmarklet:hover {
+            background: #c0392b;
+        }
+        .description {
+            color: #666;
+            font-size: 14px;
+        }
+        .instructions {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        code {
+            background: #eee;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Useful Bookmarklets</h1>
+
+    <div class="instructions">
+        <strong>How to use:</strong> Drag the bookmarklet link to your bookmarks bar, or right-click and select "Bookmark This Link". Then click the bookmark on any page to activate it.
+    </div>
+
+    <ol>
+        <li>
+            <a class="bookmarklet" href="javascript:(function(){if(window._laserPointer){window._laserPointer.toggle();return;}window._laserPointer={active:false,dot:null,init:function(){this.dot=document.createElement('div');this.dot.id='laser-pointer-dot';Object.assign(this.dot.style,{position:'fixed',width:'12px',height:'12px',borderRadius:'50%',backgroundColor:'#ff0000',boxShadow:'0 0 10px 3px rgba(255,0,0,0.7), 0 0 20px 6px rgba(255,0,0,0.4)',pointerEvents:'none',zIndex:'2147483647',display:'none',transform:'translate(-50%, -50%)',transition:'opacity 0.1s'});document.body.appendChild(this.dot);document.addEventListener('mousemove',this.onMove.bind(this));document.addEventListener('keydown',this.onKey.bind(this));},toggle:function(){this.active=!this.active;this.dot.style.display=this.active?'block':'none';document.body.style.cursor=this.active?'none':'';},onMove:function(e){if(this.active){this.dot.style.left=e.clientX+'px';this.dot.style.top=e.clientY+'px';}},onKey:function(e){if(e.key.toLowerCase()==='l'&&!e.ctrlKey&&!e.metaKey&&!e.altKey&&e.target.tagName!=='INPUT'&&e.target.tagName!=='TEXTAREA'&&!e.target.isContentEditable){this.toggle();}}};window._laserPointer.init();window._laserPointer.toggle();})();">Laser Pointer</a>
+            <div class="description">
+                <p>Adds a Google Slides-style laser pointer to any web page.</p>
+                <ul>
+                    <li>Press <code>L</code> to toggle the laser pointer on/off</li>
+                    <li>When active, a red glowing dot follows your cursor</li>
+                    <li>The normal cursor is hidden while the laser is active</li>
+                    <li>Great for presentations or highlighting content on screen</li>
+                </ul>
+            </div>
+        </li>
+    </ol>
+</body>
+</html>
