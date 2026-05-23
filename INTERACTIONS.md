@@ -108,3 +108,22 @@ Added a **Snow** bookmarklet to `index.html` that creates a continuous snowfall 
 - Auto-cleanup: each flake removes itself after animation completes
 - Ignores key press in input fields and textareas
 - Uses maximum z-index to appear above all content
+
+---
+
+## Interaction 5: Collapsible List Items
+
+**Date:** May 23, 2026
+
+### Description
+
+Made each bookmarklet item in the ordered list collapsible using HTML5 `<details>` and `<summary>` elements. All items start collapsed by default.
+
+### Changes Made
+
+- Wrapped each list item's content in `<details>` and `<summary>` elements
+- The bookmarklet link appears in the summary (always visible)
+- The description is hidden until expanded
+- Added CSS styling for the collapse/expand arrow indicator
+- Arrow rotates 90 degrees when expanded
+- Smooth transition animation on the arrow

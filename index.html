@@ -44,6 +44,30 @@
             color: #666;
             font-size: 14px;
         }
+        details {
+            margin: 0;
+        }
+        summary {
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        summary::-webkit-details-marker {
+            display: none;
+        }
+        summary::before {
+            content: '\25b6';
+            font-size: 12px;
+            transition: transform 0.2s;
+        }
+        details[open] summary::before {
+            transform: rotate(90deg);
+        }
+        details .description {
+            margin-top: 10px;
+        }
         .instructions {
             background: #fff3cd;
             padding: 15px;
@@ -66,40 +90,51 @@
 
     <ol>
         <li>
-            <a class="bookmarklet" href="javascript:(function(){if(window._laserPointer){window._laserPointer.toggle();return;}window._laserPointer={active:false,dot:null,init:function(){this.dot=document.createElement('div');this.dot.id='laser-pointer-dot';Object.assign(this.dot.style,{position:'fixed',width:'12px',height:'12px',borderRadius:'50%',backgroundColor:'#ff0000',boxShadow:'0 0 10px 3px rgba(255,0,0,0.7), 0 0 20px 6px rgba(255,0,0,0.4)',pointerEvents:'none',zIndex:'2147483647',display:'none',transform:'translate(-50%, -50%)',transition:'opacity 0.1s'});document.body.appendChild(this.dot);document.addEventListener('mousemove',this.onMove.bind(this));document.addEventListener('keydown',this.onKey.bind(this));},toggle:function(){this.active=!this.active;this.dot.style.display=this.active?'block':'none';document.body.style.cursor=this.active?'none':'';},onMove:function(e){if(this.active){this.dot.style.left=e.clientX+'px';this.dot.style.top=e.clientY+'px';}},onKey:function(e){if(e.key.toLowerCase()==='l'&&!e.ctrlKey&&!e.metaKey&&!e.altKey&&e.target.tagName!=='INPUT'&&e.target.tagName!=='TEXTAREA'&&!e.target.isContentEditable){this.toggle();}}};window._laserPointer.init();window._laserPointer.toggle();})();">Laser Pointer</a>
-            <div class="description">
-                <p>Adds a Google Slides-style laser pointer to any web page.</p>
-                <ul>
-                    <li>Press <code>L</code> to toggle the laser pointer on/off</li>
-                    <li>When active, a red glowing dot follows your cursor</li>
-                    <li>The normal cursor is hidden while the laser is active</li>
-                    <li>Great for presentations or highlighting content on screen</li>
-                </ul>
-            </div>
+            <details>
+                <summary><a class="bookmarklet" href="javascript:(function(){if(window._laserPointer){window._laserPointer.toggle();return;}window._laserPointer={active:false,dot:null,init:function(){this.dot=document.createElement('div');this.dot.id='laser-pointer-dot';Object.assign(this.dot.style,{position:'fixed',width:'12px',height:'12px',borderRadius:'50%',backgroundColor:'#ff0000',boxShadow:'0 0 10px 3px rgba(255,0,0,0.7), 0 0 20px 6px rgba(255,0,0,0.4)',pointerEvents:'none',zIndex:'2147483647',display:'none',transform:'translate(-50%, -50%)',transition:'opacity 0.1s'});document.body.appendChild(this.dot);document.addEventListener('mousemove',this.onMove.bind(this));document.addEventListener('keydown',this.onKey.bind(this));},toggle:function(){this.active=!this.active;this.dot.style.display=this.active?'block':'none';document.body.style.cursor=this.active?'none':'';},onMove:function(e){if(this.active){this.dot.style.left=e.clientX+'px';this.dot.style.top=e.clientY+'px';}},onKey:function(e){if(e.key.toLowerCase()==='l'&&!e.ctrlKey&&!e.metaKey&&!e.altKey&&e.target.tagName!=='INPUT'&&e.target.tagName!=='TEXTAREA'&&!e.target.isContentEditable){this.toggle();}}};window._laserPointer.init();window._laserPointer.toggle();})();">Laser Pointer</a></summary>
+                <div class="description">
+                    <p>Adds a Google Slides-style laser pointer to any web page.</p>
+                    <ul>
+                        <li>Press <code>L</code> to toggle the laser pointer on/off</li>
+                        <li>When active, a red glowing dot follows your cursor</li>
+                        <li>The normal cursor is hidden while the laser is active</li>
+                        <li>Great for presentations or highlighting content on screen</li>
+                    </ul>
+                </div>
+            </details>
         </li>
         <li>
-            <a class="bookmarklet" href="javascript:(function(){if(!window._confetti){window._confetti={colors:['%23ff0000','%23ff7700','%23ffdd00','%2300ff00','%230099ff','%236600ff','%23ff00ff'],fire:function(){var count=80;for(var i=0;i<count;i++){this.createPiece();}},createPiece:function(){var el=document.createElement('div');var color=this.colors[Math.floor(Math.random()*this.colors.length)];var size=Math.random()*8+4;var startX=Math.random()*window.innerWidth;var startY=-20;var endX=startX+(Math.random()-0.5)*400;var endY=window.innerHeight+20;var rotation=Math.random()*360;var duration=Math.random()*500+800;Object.assign(el.style,{position:'fixed',width:size+'px',height:size*(Math.random()*0.5+0.5)+'px',backgroundColor:color,left:startX+'px',top:startY+'px',pointerEvents:'none',zIndex:'2147483647',borderRadius:Math.random()>0.5?'50%25':'0',transform:'rotate('+rotation+'deg)',transition:'all '+duration+'ms cubic-bezier(0.25, 0.46, 0.45, 0.94)',opacity:'1'});document.body.appendChild(el);requestAnimationFrame(function(){el.style.left=endX+'px';el.style.top=endY+'px';el.style.transform='rotate('+(rotation+Math.random()*360)+'deg)';el.style.opacity='0';});setTimeout(function(){el.remove();},duration+100);}};document.addEventListener('keydown',function(e){if(e.key.toLowerCase()==='c'&&!e.ctrlKey&&!e.metaKey&&!e.altKey&&e.target.tagName!=='INPUT'&&e.target.tagName!=='TEXTAREA'&&!e.target.isContentEditable){window._confetti.fire();}});}window._confetti.fire();})();">Confetti</a>
-            <div class="description">
-                <p>Triggers a colorful confetti explosion on any web page.</p>
-                <ul>
-                    <li>Press <code>C</code> to trigger a confetti burst</li>
-                    <li>Colorful pieces fall from the top of the screen</li>
-                    <li>Effect lasts about 1 second</li>
-                    <li>Great for celebrations or adding some fun to any page</li>
-                </ul>
-            </div>
+            <details>
+                <summary><a class="bookmarklet" href="javascript:(function(){if(!window._confetti){window._confetti={colors:['%23ff0000','%23ff7700','%23ffdd00','%2300ff00','%230099ff','%236600ff','%23ff00ff'],fire:function(){var count=80;for(var i=0;i<count;i++){this.createPiece();}},createPiece:function(){var el=document.createElement('div');var color=this.colors[Math.floor(Math.random()*this.colors.length)];var size=Math.random()*8+4;var startX=Math.random()*window.innerWidth;var startY=-20;var endX=startX+(Math.random()-0.5)*400;var endY=window.innerHeight+20;var rotation=Math.random()*360;var duration=Math.random()*500+800;Object.assign(el.style,{position:'fixed',width:size+'px',height:size*(Math.random()*0.5+0.5)+'px',backgroundColor:color,left:startX+'px',top:startY+'px',pointerEvents:'none',zIndex:'2147483647',borderRadius:Math.random()>0.5?'50%25':'0',transform:'rotate('+rotation+'deg)',transition:'all '+duration+'ms cubic-bezier(0.25, 0.46, 0.45, 0.94)',opacity:'1'});document.body.appendChild(el);requestAnimationFrame(function(){el.style.left=endX+'px';el.style.top=endY+'px';el.style.transform='rotate('+(rotation+Math.random()*360)+'deg)';el.style.opacity='0';});setTimeout(function(){el.remove();},duration+100);}};document.addEventListener('keydown',function(e){if(e.key.toLowerCase()==='c'&&!e.ctrlKey&&!e.metaKey&&!e.altKey&&e.target.tagName!=='INPUT'&&e.target.tagName!=='TEXTAREA'&&!e.target.isContentEditable){window._confetti.fire();}});}window._confetti.fire();})();">Confetti</a></summary>
+                <div class="description">
+                    <p>Triggers a colorful confetti explosion on any web page.</p>
+                    <ul>
+                        <li>Press <code>C</code> to trigger a confetti burst</li>
+                        <li>Colorful pieces fall from the top of the screen</li>
+                        <li>Effect lasts about 1 second</li>
+                        <li>Great for celebrations or adding some fun to any page</li>
+                    </ul>
+                </div>
+            </details>
         </li>
         <li>
-            <a class="bookmarklet" href="javascript:(function(){if(window._snow){window._snow.toggle();return;}window._snow={active:false,interval:null,flakes:[],toggle:function(){this.active=!this.active;if(this.active){this.start();}else{this.stop();}},start:function(){var self=this;this.interval=setInterval(function(){self.createFlake();},50);},stop:function(){clearInterval(this.interval);this.flakes.forEach(function(f){f.remove();});this.flakes=[];},createFlake:function(){var el=document.createElement('div');var size=Math.random()*4+2;var startX=Math.random()*window.innerWidth;var duration=Math.random()*3000+2000;var drift=Math.random()*100-50;Object.assign(el.style,{position:'fixed',width:size+'px',height:size+'px',backgroundColor:'white',borderRadius:'50%25',left:startX+'px',top:'-10px',pointerEvents:'none',zIndex:'2147483647',opacity:Math.random()*0.5+0.5,boxShadow:'0 0 3px rgba(255,255,255,0.8)',transition:'all '+duration+'ms linear'});document.body.appendChild(el);this.flakes.push(el);requestAnimationFrame(function(){el.style.top=window.innerHeight+10+'px';el.style.left=(startX+drift)+'px';});var self=this;setTimeout(function(){el.remove();var idx=self.flakes.indexOf(el);if(idx>-1)self.flakes.splice(idx,1);},duration+100);}};document.addEventListener('keydown',function(e){if(e.key.toLowerCase()==='s'&&!e.ctrlKey&&!e.metaKey&&!e.altKey&&e.target.tagName!=='INPUT'&&e.target.tagName!=='TEXTAREA'&&!e.target.isContentEditable){window._snow.toggle();}});window._snow.toggle();})();">Snow</a>
-            <div class="description">
-                <p>Adds a peaceful snowfall effect to any web page.</p>
-                <ul>
-                    <li>Press <code>S</code> to toggle snow on/off</li>
-                    <li>White snowflakes gently fall from the top of the screen</li>
-                    <li>Snowflakes have varying sizes and subtle drift</li>
-                    <li>Great for adding a winter atmosphere to any page</li>
-                </ul>
-            </div>
+            <details>
+                <summary><a class="bookmarklet" href="javascript:(function(){if(window._snow){window._snow.toggle();return;}window._snow={active:false,interval:null,flakes:[],toggle:function(){this.active=!this.active;if(this.active){this.start();}else{this.stop();}},start:function(){var self=this;this.interval=setInterval(function(){self.createFlake();},50);},stop:function(){clearInterval(this.interval);this.flakes.forEach(function(f){f.remove();});this.flakes=[];},createFlake:function(){var el=document.createElement('div');var size=Math.random()*4+2;var startX=Math.random()*window.innerWidth;var duration=Math.random()*3000+2000;var drift=Math.random()*100-50;Object.assign(el.style,{position:'fixed',width:size+'px',height:size+'px',backgroundColor:'white',borderRadius:'50%25',left:startX+'px',top:'-10px',pointerEvents:'none',zIndex:'2147483647',opacity:Math.random()*0.5+0.5,boxShadow:'0 0 3px rgba(255,255,255,0.8)',transition:'all '+duration+'ms linear'});document.body.appendChild(el);this.flakes.push(el);requestAnimationFrame(function(){el.style.top=window.innerHeight+10+'px';el.style.left=(startX+drift)+'px';});var self=this;setTimeout(function(){el.remove();var idx=self.flakes.indexOf(el);if(idx>-1)self.flakes.splice(idx,1);},duration+100);}};document.addEventListener('keydown',function(e){if(e.key.toLowerCase()==='s'&&!e.ctrlKey&&!e.metaKey&&!e.altKey&&e.target.tagName!=='INPUT'&&e.target.tagName!=='TEXTAREA'&&!e.target.isContentEditable){window._snow.toggle();}});window._snow.toggle();})();">Snow</a></summary>
+                <div class="description">
+                    <p>Adds a peaceful snowfall effect to any web page.</p>
+                    <ul>
+                        <li>Press <code>S</code> to toggle snow on/off</li>
+                        <li>White snowflakes gently fall from the top of the screen</li>
+                        <li>Snowflakes have varying sizes and subtle drift</li>
+                        <li>Great for adding a winter atmosphere to any page</li>
+                    </ul>
+                </div>
+            </details>
+        </li>
+        <li>
+            <details>
+                <summary><a class="bookmarklet" href="javascript:q=location.href;if(document.getSelection)%7Bd=document.getSelection();%7Delse%7Bd='';%7D;p=document.title;void(open('https://pinboard.in/add?showtags=yes&url=%27+encodeURIComponent(q)+%27&description=%27+encodeURIComponent(d)+%27&title=%27+encodeURIComponent(p),%27Pinboard%27,%27toolbar=no,scrollbars=yes,width=750,height=700%27));">Pinboard.in's bookmarklet</a></summary>
+            </details>
         </li>
     </ol>
 </body>
