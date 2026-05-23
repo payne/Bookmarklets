@@ -136,6 +136,20 @@
                 <summary><a class="bookmarklet" href="javascript:q=location.href;if(document.getSelection)%7Bd=document.getSelection();%7Delse%7Bd='';%7D;p=document.title;void(open('https://pinboard.in/add?showtags=yes&url=%27+encodeURIComponent(q)+%27&description=%27+encodeURIComponent(d)+%27&title=%27+encodeURIComponent(p),%27Pinboard%27,%27toolbar=no,scrollbars=yes,width=750,height=700%27));">Pinboard.in's bookmarklet</a></summary>
             </details>
         </li>
+        <li>
+            <details>
+                <summary><a class="bookmarklet" href="javascript:(function(){if(window._labels){return;}window._labels={count:0,create:function(x,y){var el=document.createElement('div');this.count++;el.className='_label_item';el.textContent='Label '+this.count;Object.assign(el.style,{position:'fixed',left:x+'px',top:y+'px',padding:'8px 12px',backgroundColor:'%23ffeb3b',color:'%23333',fontFamily:'sans-serif',fontSize:'14px',fontWeight:'bold',borderRadius:'4px',boxShadow:'0 2px 8px rgba(0,0,0,0.3)',cursor:'move',zIndex:'2147483647',userSelect:'none',minWidth:'60px',textAlign:'center'});document.body.appendChild(el);this.makeDraggable(el);el.addEventListener('dblclick',function(){var txt=prompt('Edit label:',el.textContent);if(txt!==null)el.textContent=txt;});},makeDraggable:function(el){var offsetX,offsetY,dragging=false;el.addEventListener('mousedown',function(e){if(e.detail>1)return;dragging=true;offsetX=e.clientX-el.offsetLeft;offsetY=e.clientY-el.offsetTop;e.preventDefault();});document.addEventListener('mousemove',function(e){if(dragging){el.style.left=(e.clientX-offsetX)+'px';el.style.top=(e.clientY-offsetY)+'px';}});document.addEventListener('mouseup',function(){dragging=false;});}};document.addEventListener('keydown',function(e){if(e.key.toLowerCase()==='l'&&!e.ctrlKey&&!e.metaKey&&!e.altKey&&e.target.tagName!=='INPUT'&&e.target.tagName!=='TEXTAREA'&&!e.target.isContentEditable){window._labels.create(window.innerWidth/2-50,window.innerHeight/2-20);}});})();">Labels</a></summary>
+                <div class="description">
+                    <p>Create draggable labels on any web page.</p>
+                    <ul>
+                        <li>Press <code>L</code> to create a new label at the center of the screen</li>
+                        <li>Drag labels anywhere on the page</li>
+                        <li>Double-click a label to edit its text</li>
+                        <li>Great for annotating screenshots or marking areas of interest</li>
+                    </ul>
+                </div>
+            </details>
+        </li>
     </ol>
 </body>
 </html>

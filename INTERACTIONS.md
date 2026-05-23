@@ -127,3 +127,34 @@ Made each bookmarklet item in the ordered list collapsible using HTML5 `<details
 - Added CSS styling for the collapse/expand arrow indicator
 - Arrow rotates 90 degrees when expanded
 - Smooth transition animation on the arrow
+
+---
+
+## Interaction 6: Labels Bookmarklet
+
+**Date:** May 23, 2026
+
+### Description
+
+Added a **Labels** bookmarklet to `index.html` that allows users to create draggable, editable labels on any web page.
+
+### Bookmarklet Details
+
+**Name:** Labels
+
+**Functionality:**
+- Press `L` to create a new label at the center of the screen
+- Labels are draggable - click and drag to reposition
+- Double-click a label to edit its text via prompt dialog
+- Labels are numbered sequentially (Label 1, Label 2, etc.)
+- Yellow sticky-note style appearance
+
+**Technical Implementation:**
+- Creates fixed-position div elements styled as yellow labels
+- Implements drag-and-drop via mousedown/mousemove/mouseup events
+- Double-click event triggers prompt() for text editing
+- Tracks label count for sequential numbering
+- Ignores key press in input fields and textareas
+- Uses maximum z-index to appear above all content
+
+**Note:** Uses the same hotkey (`L`) as Laser Pointer - cannot use both simultaneously on the same page.
