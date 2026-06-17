@@ -79,9 +79,47 @@
             padding: 2px 6px;
             border-radius: 3px;
         }
+        .github-ribbon {
+            position: fixed;
+            top: 0;
+            right: 0;
+            z-index: 1000;
+        }
+        .github-ribbon a {
+            display: block;
+            width: 150px;
+            height: 150px;
+            overflow: hidden;
+            position: relative;
+        }
+        .github-ribbon a span {
+            position: absolute;
+            display: block;
+            width: 225px;
+            padding: 8px 0;
+            background-color: #333;
+            color: #fff;
+            font-size: 13px;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+            transform: rotate(45deg);
+            top: 45px;
+            right: -55px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+        .github-ribbon a:hover span {
+            background-color: #c0392b;
+        }
     </style>
 </head>
 <body>
+    <div class="github-ribbon">
+        <a href="https://github.com/payne/Bookmarklets" target="_blank" rel="noopener">
+            <span>Fork me on GitHub</span>
+        </a>
+    </div>
+
     <h1>Useful Bookmarklets</h1>
 
     <div class="instructions">
