@@ -158,3 +158,31 @@ Added a **Labels** bookmarklet to `index.html` that allows users to create dragg
 - Uses maximum z-index to appear above all content
 
 **Note:** Uses the same hotkey (`L`) as Laser Pointer - cannot use both simultaneously on the same page.
+
+---
+
+## Interaction 7: Reload300 Bookmarklet
+
+**Date:** September 15, 2026
+
+### Description
+
+Added a **Reload300** bookmarklet to `index.html` that automatically reloads the current page every 300 seconds, forever, with console logging of its status.
+
+### Bookmarklet Details
+
+**Name:** Reload300
+
+**Functionality:**
+- Reloads the page every 300 seconds (5 minutes)
+- Logs to the console when it reloads
+- Logs the time remaining until the next reload every 30 seconds
+- Keeps looping indefinitely - no need to re-click after each reload
+- Click the bookmarklet again to stop it
+
+**Technical Implementation:**
+- A real `location.reload()` destroys the entire JS context, so nothing can survive it to automatically resume the countdown - this is a fundamental browser limitation, not something code can work around
+- To satisfy "keeps working after the reload," it instead does a "soft reload": `fetch()`s the current URL fresh (bypassing cache) and swaps the content in via `document.open()`/`document.write()`/`document.close()`, which replaces the document but leaves the `window` object (and therefore the bookmarklet's timers) intact
+- Uses one `setInterval` (30s) for the countdown log and one `setTimeout` (300s) for the reload itself, re-arming both after every successful cycle
+- Falls back to a real one-time `location.reload()` if the fetch fails (e.g. CORS/CSP blocking the refetch), though the timer won't survive that fallback
+- Created `docs/reload300.md` documenting the approach and its trade-offs versus a true browser reload

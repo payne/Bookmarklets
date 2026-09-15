@@ -188,6 +188,20 @@
                 </div>
             </details>
         </li>
+        <li>
+            <details>
+                <summary><a class="bookmarklet" href="javascript:(function(){if(window._reload300){window._reload300.toggle();return;}var RELOAD_MS=300000;var LOG_MS=30000;window._reload300={active:false,endTime:0,reloadTimer:null,logTimer:null,toggle:function(){this.active=!this.active;if(this.active){this.start();}else{this.stop();}},start:function(){console.log('[reload300] Started - reloading every '+(RELOAD_MS/1000)+'s.');this.scheduleCycle();},scheduleCycle:function(){var self=this;this.endTime=Date.now()+RELOAD_MS;this.logTimer=setInterval(function(){var remaining=Math.max(0,Math.round((self.endTime-Date.now())/1000));console.log('[reload300] '+remaining+'s until reload.');},LOG_MS);this.reloadTimer=setTimeout(function(){self.doReload();},RELOAD_MS);},doReload:function(){var self=this;console.log('[reload300] Reloading now...');clearInterval(this.logTimer);fetch(location.href,{cache:'reload',credentials:'same-origin'}).then(function(res){if(!res.ok){throw new Error('HTTP '+res.status);}return res.text();}).then(function(html){document.open();document.write(html);document.close();console.log('[reload300] Reload complete, still active.');if(self.active){self.scheduleCycle();}}).catch(function(err){console.log('[reload300] Fetch failed, falling back to a full navigation reload (timer will not survive):',err);location.reload();});},stop:function(){clearInterval(this.logTimer);clearTimeout(this.reloadTimer);console.log('[reload300] Stopped.');}};window._reload300.toggle();})();">Reload300</a></summary>
+                <div class="description">
+                    <p>Automatically reloads the current page every 300 seconds (5 minutes), indefinitely.</p>
+                    <ul>
+                        <li>Logs to the console when it reloads, and how many seconds remain every 30 seconds</li>
+                        <li>Click the bookmarklet again to stop it</li>
+                        <li>Reloads by re-fetching the page and swapping in the fresh content, rather than a normal browser navigation, so the countdown keeps running forever instead of stopping after one cycle</li>
+                        <li>Falls back to a normal one-time <code>location.reload()</code> if the fetch fails (e.g. cross-origin restrictions)</li>
+                    </ul>
+                </div>
+            </details>
+        </li>
     </ol>
 </body>
 </html>
