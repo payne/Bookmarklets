@@ -202,6 +202,22 @@
                 </div>
             </details>
         </li>
+        <li>
+            <details>
+                <summary><a class="bookmarklet" href="javascript:(function(){if(window._reloadTimer){window._reloadTimer.stop();return;}var input=prompt('Reload this page every how many seconds?','60');if(input===null){return;}var secs=parseFloat(input);if(!(secs>0)){alert('Please enter a positive number of seconds.');return;}var PERIOD_MS=secs*1000;window._reloadTimer={endTime:0,tick:null,badge:null,start:function(){var self=this;this.endTime=Date.now()+PERIOD_MS;this.tick=setInterval(function(){self.update();},250);this.update();},ensureBadge:function(){if(this.badge&&document.documentElement.contains(this.badge)){return;}var self=this;var el=document.createElement('div');el.title='Click to cancel auto-reload';Object.assign(el.style,{position:'fixed',top:'10px',right:'10px',zIndex:'2147483647',padding:'6px 10px',backgroundColor:'rgba(0,0,0,0.75)',color:'white',fontFamily:'monospace',fontSize:'14px',fontWeight:'bold',borderRadius:'4px',boxShadow:'0 2px 6px rgba(0,0,0,0.4)',cursor:'pointer',userSelect:'none'});el.addEventListener('click',function(){self.stop();});(document.body||document.documentElement).appendChild(el);this.badge=el;},update:function(){var left=Math.max(0,Math.ceil((this.endTime-Date.now())/1000));var m=Math.floor(left/60);var s=left-m*60;this.ensureBadge();this.badge.textContent='Reload in '+(m?m+':'+(s<10?'0':'')+s:s+'s');if(left<=0){clearInterval(this.tick);this.badge.textContent='Reloading...';this.doReload();}},doReload:function(){var self=this;fetch(location.href,{cache:'reload',credentials:'same-origin'}).then(function(res){if(!res.ok){throw new Error('HTTP '+res.status);}var plain=/^text\/plain/i.test(res.headers.get('content-type')||'');return res.text().then(function(body){return{body:body,plain:plain};});}).then(function(r){document.open();if(r.plain){document.write('<!DOCTYPE html><html><head></head><body><pre></pre></body></html>');document.close();var pre=document.querySelector('pre');pre.style.whiteSpace='pre-wrap';pre.style.wordWrap='break-word';pre.textContent=r.body;}else{document.write(r.body);document.close();}self.scrollToBottom();if(window._reloadTimer===self){self.badge=null;self.start();}}).catch(function(err){console.log('[reloadTimer] Fetch failed, falling back to a full navigation reload (timer will not survive):',err);location.reload();});},scrollToBottom:function(){var go=function(){var d=document.documentElement,b=document.body;window.scrollTo(0,Math.max(d?d.scrollHeight:0,b?b.scrollHeight:0));};go();setTimeout(go,300);setTimeout(go,1500);},stop:function(){clearInterval(this.tick);if(this.badge){this.badge.remove();}window._reloadTimer=null;}};window._reloadTimer.start();})();">Reload Timer</a></summary>
+                <div class="description">
+                    <p>Asks how many seconds to wait, then shows a countdown in the upper-right corner and reloads the page when it reaches zero, over and over.</p>
+                    <ul>
+                        <li>The countdown sits on top of everything else on the page</li>
+                        <li>Click the countdown, or click the bookmarklet again, to stop it</li>
+                        <li>Like Reload300, it reloads by re-fetching the page and swapping in the fresh content, so the timer survives the reload and starts counting down again</li>
+                        <li>After each reload it scrolls to the bottom of the page (handy for logs and other growing pages)</li>
+                        <li>If the page is served as <code>text/plain</code>, the fresh content is wrapped in a <code>&lt;pre&gt;</code> so it keeps its line breaks and spacing</li>
+                        <li>Falls back to a normal one-time <code>location.reload()</code> if the fetch fails (e.g. cross-origin restrictions)</li>
+                    </ul>
+                </div>
+            </details>
+        </li>
     </ol>
 </body>
 </html>
